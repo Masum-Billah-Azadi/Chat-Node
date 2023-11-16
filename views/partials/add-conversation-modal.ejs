@@ -28,11 +28,13 @@
   const input = document.querySelector("input#user");
   const conversation_list = document.querySelector("#conversation-list");
   let users_placeholder = document.querySelector(".search_users");
+
   // conversation created failure toast
   const conversationFailureToast = Toastify({
     text: "Error creating a conversation!",
     duration: 1000,
   });
+
   function closeModal() {
     modal.style.display = "none";
     // reset
@@ -42,19 +44,23 @@
   function openModal() {
     modal.style.display = "block";
   }
+
   //on keyup, start the countdown
   input.addEventListener("keyup", function () {
     clearTimeout(typingTimer);
     // reset
     users_placeholder.style.display = "none";
+
     if (input.value) {
       typingTimer = setTimeout(searchUsers, doneTypingInterval); //user is "finished typing," send search request
     }
   });
+
   //on keydown, clear the countdown
   input.addEventListener("keydown", function () {
     clearTimeout(typingTimer);
   });
+
   // send request for search
   async function searchUsers() {
     let response = await fetch("/inbox/search", {
@@ -66,8 +72,10 @@
         "Content-type": "application/json; charset=UTF-8",
       },
     });
+
     // get response
     let result = await response.json();
+
     // handle error and response
     if (result.errors) {
       const errorplaceholder = document.querySelector("p.error");
@@ -80,14 +88,15 @@
           const avatar = user.avatar
             ? "./uploads/avatars/" + user.avatar
             : "./images/nophoto.png";
+
           generatedHtml += `<li onclick="createConversation('${user._id}', '${user.name}', '${user.avatar}')">
-                <div class="user">
-                  <div class="avatar">
-                    <img src="${avatar}" />
-                  </div>
-                  <div class="username">${user.name}</div>
+              <div class="user">
+                <div class="avatar">
+                  <img src="${avatar}" />
                 </div>
-              </li>`;
+                <div class="username">${user.name}</div>
+              </div>
+            </li>`;
         });
         generatedHtml += "</ul>";
         users_placeholder.innerHTML = generatedHtml;
@@ -95,6 +104,7 @@
       }
     }
   }
+
   // create Conversation
   async function createConversation(participant_id, name, avatar) {
     try {
@@ -109,7 +119,9 @@
           "Content-type": "application/json; charset=UTF-8",
         },
       });
+
       const result = response.json();
+
       if (!result.errors) {
         // reset
         users_placeholder.style.display = "none";

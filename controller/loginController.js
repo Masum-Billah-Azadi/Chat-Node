@@ -5,10 +5,12 @@ const createError = require("http-errors");
 
 // internal imports
 const User = require("../models/People");
+
 // get login page
 function getLogin(req, res, next) {
   res.render("index");
 }
+
 // do login
 async function login(req, res, next) {
   try {

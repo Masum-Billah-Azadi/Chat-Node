@@ -17,6 +17,7 @@ const router = express.Router();
 
 // inbox page
 router.get("/", decorateHtmlResponse("Inbox"), checkLogin, getInbox);
+
 // search user for conversation
 router.post("/search", checkLogin, searchUser);
 

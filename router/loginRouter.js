@@ -9,6 +9,7 @@ const {
   doLoginValidationHandler,
 } = require("../middlewares/login/loginValidators");
 const { redirectLoggedIn } = require("../middlewares/common/checkLogin");
+
 const router = express.Router();
 
 // set page title

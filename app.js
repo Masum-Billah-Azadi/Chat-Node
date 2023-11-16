@@ -6,6 +6,8 @@ const mongoose = require("mongoose");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const moment = require("moment");
+
+// internal imports
 const loginRouter = require("./router/loginRouter");
 const usersRouter = require("./router/usersRouter");
 const inboxRouter = require("./router/inboxRouter");
@@ -19,6 +21,7 @@ const {
 const app = express();
 const server = http.createServer(app);
 dotenv.config();
+
 // socket creation
 const io = require("socket.io")(server);
 global.io = io;
